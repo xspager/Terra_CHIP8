@@ -1,7 +1,9 @@
 //#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#ifndef __APPLE__
 #include <wchar.h>
+#endif
 #include <caca.h>
 
 uint32_t gfx[64*32];
@@ -11,11 +13,11 @@ int main(void)
     //                   R G B A
     uint32_t pattern = 0xFFFF00FF;
 
-    //memset_pattern4(gfx, &pattern, sizeof(gfx));
-    //wmemset(gfx, (wchar_t) pattern, sizeof(gfx));
-    for(int i = 0; i <= 64*32; i++) {
-        gfx[i] = 0xFFFF00FF;
-    }
+#ifdef __APPLE__
+    memset_pattern4(gfx, &pattern, sizeof(gfx));
+#elif
+    wmemset(gfx, pattern, (64*32) * sizeof(char));
+#endif
 
     gfx[0] =    0xFF0000FF; // R
     gfx[1] =    0x00FF00FF; // G
