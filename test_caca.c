@@ -1,15 +1,21 @@
 //#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <wchar.h>
 #include <caca.h>
+
+uint32_t gfx[64*32];
 
 int main(void)
 {
-    uint32_t gfx[64*32];
     //                   R G B A
     uint32_t pattern = 0xFFFF00FF;
 
-    memset_pattern4(gfx, &pattern, sizeof(gfx));
+    //memset_pattern4(gfx, &pattern, sizeof(gfx));
+    //wmemset(gfx, (wchar_t) pattern, sizeof(gfx));
+    for(int i = 0; i <= 64*32; i++) {
+        gfx[i] = 0xFFFF00FF;
+    }
 
     gfx[0] =    0xFF0000FF; // R
     gfx[1] =    0x00FF00FF; // G
@@ -46,7 +52,9 @@ int main(void)
     caca_dither_bitmap(cv, 0,0,cw,ch, dither, gfx);
     caca_refresh_display(dp);
 
-    caca_get_event(dp, CACA_EVENT_KEY_PRESS, &ev, -1);
+    caca_free_dither(dither);
+    //caca_get_event(dp, CACA_EVENT_KEY_PRESS, &ev, -1);
+    caca_get_event(dp, CACA_EVENT_KEY_PRESS, NULL, -1);
     caca_free_display(dp);
     return 0;
 }

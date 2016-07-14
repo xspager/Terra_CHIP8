@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 2.6)
+LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/res)
+project (Terra_CHIP8)
+add_executable(test_caca test_caca.c)
+TARGET_LINK_LIBRARIES(test_caca caca)
