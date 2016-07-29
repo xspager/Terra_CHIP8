@@ -3,7 +3,13 @@ local bit = require('bit')
 local C = terralib.includec("stdio.h")
 exit = terralib.externfunction("exit", int -> {})
 local caca = terralib.includec("caca.h")
-terralib.linklibrary("/usr/local/Cellar/libcaca/0.99b19/lib/libcaca.0.dylib")
+
+local system = io.popen("uname -s"):read("*l")
+if system ~= "Linux" then
+	terralib.linklibrary("/usr/local/Cellar/libcaca/0.99b19/lib/libcaca.0.dylib")
+else
+	terralib.linklibrary("libcaca.so")
+end
 
 --[[
     Memory map

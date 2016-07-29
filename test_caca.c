@@ -15,7 +15,7 @@ int main(void)
 
 #ifdef __APPLE__
     memset_pattern4(gfx, &pattern, sizeof(gfx));
-#elif
+#else
     wmemset(gfx, pattern, (64*32) * sizeof(char));
 #endif
 
