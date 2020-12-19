@@ -5,7 +5,9 @@ Terra\_CHIP8
 
 Using [libcaca](http://caca.zoy.org/wiki/libcaca) to display things because I can. :joy:
 
-![Screenshot running test.bin](test_program.png)
+![Screenshot](test_program.png)
+
+Status: far from being functional
 
 You will need to install libcaca and http://terralang.org/
 

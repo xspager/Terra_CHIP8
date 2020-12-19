@@ -31,7 +31,7 @@ int main(void)
     dp = caca_create_display(NULL);
     if(!dp)
         return 1;
-    /*
+    #if 0
     printf("Current driver: %s\n", caca_get_display_driver(dp));
     char **drivers = caca_get_display_driver_list();
     caca_free_display(dp);
@@ -39,7 +39,8 @@ int main(void)
         printf("%s\n", *drivers);
         drivers++;
     }
-    exit(0);*/
+    exit(0);
+	#endif
     cv = caca_get_canvas(dp);
     caca_dither_t *dither = caca_create_dither(32, 64, 32, 4*64,
         0xFF000000,

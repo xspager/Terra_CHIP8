@@ -155,7 +155,7 @@ function lua_decode_opcode(chip8, masked_opcode)
                 chip8.opcode, 0x00F0), 4)
             local N = bit.band(
                 chip8.opcode, 0x000F)
-            --print("x:"..x.." y:"..y.." N:"..N)
+            print("x:"..x.." y:"..y.." N:"..N)
             chip8.gfx[0] =  0xFF
             chip8.gfx[63] = 0xFF
             chip8.gfx[31*64] = 0xFF
@@ -177,7 +177,7 @@ terra Chip8:emulateCycle()
     -- Fetch Opcode
     self.opcode = self.memory[self.pc]
     self.opcode = self.opcode << 8 or self.memory[self.pc+1]
-    C.printf("OPCODE = 0x%04X\n", self.opcode)
+    --C.printf("OPCODE = 0x%04X\n", self.opcode)
     -- Decode Opcode
     var masked_opcode: uint16 = self.opcode and 0xF000
     self.pc = self.pc + 2
@@ -223,8 +223,11 @@ terra setupGraphics(): Graphics
 
     graphics.display = caca.caca_create_display(nil);
     if graphics.display == nil then
+		C.printf("Could not create display")
         exit(1)
     end
+
+	--caca.caca_set_display_driver(graphics.display, "ncurses")
 
     graphics.canvas = caca.caca_get_canvas(graphics.display)
     graphics.dither = caca.caca_create_dither(8, 64, 32, 64, 0,0,0,0)
