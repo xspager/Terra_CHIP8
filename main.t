@@ -2,6 +2,7 @@
 local bit = require('bit')
 local C = terralib.includec("stdio.h")
 exit = terralib.externfunction("exit", int -> {})
+sleep = terralib.externfunction("sleep", uint -> {})
 local caca = terralib.includec("caca.h")
 
 local system = io.popen("uname -s"):read("*l")
@@ -176,7 +177,7 @@ terra Chip8:emulateCycle()
     -- Fetch Opcode
     self.opcode = self.memory[self.pc]
     self.opcode = self.opcode << 8 or self.memory[self.pc+1]
-    --C.printf("OPCODE = 0x%04X\n", self.opcode)
+    C.printf("OPCODE = 0x%04X\n", self.opcode)
     -- Decode Opcode
     var masked_opcode: uint16 = self.opcode and 0xF000
     self.pc = self.pc + 2
@@ -254,10 +255,11 @@ terra main()
             chip8.drawflag = false
         end
         -- setKeys() 
+        sleep(1)
     end
     graphics:free()
 end
 
 main()
---terralib.saveobj('main', {main=main})
+--terralib.saveobj('main', {main=main}, {"-lcaca"})
 --terralib.saveobj('main.S', 'llvmir', {main=main})
